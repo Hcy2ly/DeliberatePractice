@@ -1,0 +1,89 @@
+body {
+  position: relative;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 90vh;
+  background: #e0cc35;
+}
+div {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 247px;
+  /* 用linear-gradient的末端➕起始值*/
+  height: 60px;
+  border-left: 2px solid rgba(0, 0, 0, 0.6);
+  border-radius: 3px;
+  box-shadow: 2px 2px 3px rgba(0, 0, 0, 0.3);
+  background: #237449;
+  /* 这里可以尝试用background，会发现 #237449 这个背景色会被覆盖掉。所以 background 和 backgroudImage 的区别可以从这里探索。 */
+  /* 可以多个 linear-gradient() 叠加，谁先渲染谁在后，谁的颜色在上面谁就在前面 */
+  background-image: radial-gradient(/* ellipse printed on wrapper 包装纸上面印椭圆*/ ellipse at top, rgba(0, 0, 0, 0.6) 50px, transparent 54px), linear-gradient(/* printed stripes 印花条纹 */ to right, transparent 12px, transparent 12px, transparent 25px, rgba(0, 0, 0, 0.6) 25px, rgba(0, 0, 0, 0.6) 30px, transparent 30px, transparent 35px, rgba(0, 0, 0, 0.6) 35px, rgba(0, 0, 0, 0.6) 40px, transparent 40px, transparent 205px, rgba(0, 0, 0, 0.6) 205px, rgba(0, 0, 0, 0.6) 210px, transparent 210px, transparent 215px, rgba(0, 0, 0, 0.6) 215px, rgba(0, 0, 0, 0.6) 220px, transparent 220px, transparent 235px, transparent 235px), linear-gradient(/* wrapper 包装纸 */ to right, transparent 12px, rgba(41, 237, 133, 0.6) 12px, rgba(41, 237, 133, 0.6) 235px, transparent 235px), linear-gradient(/* crayon body shading 蜡笔身体阴影*/ to bottom, transparent 62%, rgba(0, 0, 0, 0.3) 100%);
+}
+div::before {
+  content: '';
+  position: relative;
+  height: 24px;
+  margin-left: -70px;
+  top: 19px;
+  border-right: 70px solid #237449;
+  border-bottom: 18px solid transparent;
+  border-top: 18px solid transparent;
+}
+div:after {
+  content: '';
+  position: absolute;
+  margin-left: -70px;
+  top: 18px;
+  width: 317px;
+  height: 15px;
+  background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 5px, rgba(255, 255, 255, 0.2) 9px, rgba(255, 255, 255, 0.2) 10px, rgba(255, 255, 255, 0) 14px);
+  z-index: 222;
+  box-shadow: 1px 0px 1px rgba(255, 255, 255, 0.05);
+  border-radius: 2%;
+}
+div:after {
+  content: 'Deliberate practice - ly';
+  font-family: Arial, sans-serif;
+  font-size: 12px;
+  font-weight: bold;
+  color: #237449;
+  text-align: left;
+  padding-left: 140px;
+  padding-top: 17px;
+  box-sizing: border-box;
+}
+/* background-image: linear-gradient(to right,
+  // 此处忽略了  transparent 0px, 表示起点
+  transparent 25px, // 第一块区域，宽度为：25-0px； 颜色为：transparent（透明，所以取值backgroud）
+
+  // 中间这块区域的宽度为： 后面的30px-前面的25px； 颜色为： rgba(0,0,0,.6) // ps: 注意没有宽度的是为了颜色的贴合切换！！
+  rgba(0,0,0,.6) 25px, 
+  rgba(0,0,0,.6) 30px, 
+
+  // 第三块区域 以此类推,,,
+  transparent 30px,
+  transparent 35px,
+
+  rgba(0,0,0,.6) 35px,
+  rgba(0,0,0,.6) 40px,
+
+  transparent 40px,
+  transparent 210px,
+
+  rgba(0,0,0,.6) 210px,
+  rgba(0,0,0,.6)215px,
+
+  transparent 215px,
+  transparent 220px,
+
+  rgba(0,0,0,.6) 220px,
+  rgba(0,0,0,.6) 225px,
+
+  transparent 225px,
+  // 此处忽略：transparent 宽度px   表示终点
+  ); */
