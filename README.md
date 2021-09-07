@@ -1,15 +1,11 @@
 # DeliberatePractice
-前端知识点总结
-https://juejin.im/post/5e7c08bde51d455c4c66ddad
 
-* 第一阶段目标 https://segmentfault.com/a/1190000022684316
+- 中级前端面试秘籍： https://segmentfault.com/a/1190000022684316
 
-1. html5语义化
-
-
-
+- 写给初中级前端的高级进阶指南： https://juejin.im/post/5e7c08bde51d455c4c66ddad
 
 ## 前端路
+
 走正统到道路吧~~  
 先页面重构(html+css)，
 再学习脚本语言（js、ts），
