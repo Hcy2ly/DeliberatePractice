@@ -22,18 +22,6 @@ div {
     border-top: 18px solid transparent;
   }
 
-  // 不行，不知道为啥。
-  // &::before { 
-  //   content: '';
-  //   position: relative;
-  //   height: 16px;
-  //   margin-left: -70px;
-  //   top: 22px;
-  //   border-right:70px solid #237449;
-  //   border-bottom: 22px solid transparent;
-  //   border-top: 22px solid transparent;
-  // }
-
   &:after {
     content: '';
     position: absolute;
@@ -118,34 +106,3 @@ div {
     transparent 62%,
     rgba(0, 0, 0, 0.3) 100%);
 }
-
-/* background-image: linear-gradient(to right,
-  // 此处忽略了  transparent 0px, 表示起点
-  transparent 25px, // 第一块区域，宽度为：25-0px； 颜色为：transparent（透明，所以取值backgroud）
-
-  // 中间这块区域的宽度为： 后面的30px-前面的25px； 颜色为： rgba(0,0,0,.6) // ps: 注意没有宽度的是为了颜色的贴合切换！！
-  rgba(0,0,0,.6) 25px, 
-  rgba(0,0,0,.6) 30px, 
-
-  // 第三块区域 以此类推,,,
-  transparent 30px,
-  transparent 35px,
-
-  rgba(0,0,0,.6) 35px,
-  rgba(0,0,0,.6) 40px,
-
-  transparent 40px,
-  transparent 210px,
-
-  rgba(0,0,0,.6) 210px,
-  rgba(0,0,0,.6)215px,
-
-  transparent 215px,
-  transparent 220px,
-
-  rgba(0,0,0,.6) 220px,
-  rgba(0,0,0,.6) 225px,
-
-  transparent 225px,
-  // 此处忽略：transparent 宽度px   表示终点
-  ); */
