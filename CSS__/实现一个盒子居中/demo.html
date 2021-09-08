@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      width: 200px;
+      height: 100px;
+      background: red;
+    }
+
+    /* 水平居中 */
+    /* .box {
+      margin: 0 auto;
+    } */
+
+    /* flex实现盒子的水平居中  对父元素用flex */
+    /* .main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    } */
+
+    /* 绝对定位 + margin */
+    /* .box {
+      position: absolute;
+      left: 0;
+      right: 0;
+      margin: 0 auto;
+    } */
+
+    /* transform + 绝对定位*/
+    /* .box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    } */
+
+    /*绝对定位 + 负margin*/
+    .box {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      margin-top: -50px;
+      margin-left: -100px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="main">
+    <div class="box"></div>
+  </div>
+</body>
+
+</html>
