@@ -378,3 +378,89 @@ webp格式是谷歌在2010年推出的图片格式，压缩率只有jpg的2/3，
 
 将一个页面涉及到的所有图片都包含到一张大图中去，然后利用CSS的 background-image，background- repeat，background-position 的组合进行背景定位。利用CSS Sprites能很好地减少网页的http请求，从而大大的提高页面的性能；CSS Sprites能减少图片的字节。
 
+## 46 Flex布局，以及常用的属性
+
+网页布局是 css 的一个重点应用
+布局的传统解决方案，是基于**盒装模型**，依赖 display 属性 + position属性 + float属性。它对于那些特殊布局非常不方便，比如，垂直居中就不容易实现。
+2009年，W3C提出了一种新的方案----Flex布局，可以简便、完整、响应式地实现各种页面布局。目前，它已经得到了所有浏览器的支持，这意味着，现在就能很安全地使用这项功能。
+Flex 布局将成为未来布局的首选方案。
+
+1. Flex布局是什么？
+   
+    Flex 是 Flexible Box 的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。
+    任何一个容器都可以指定为 Flex 布局。块级元素用 flex，行内元素用 inline-flex。
+    Webkit 内核的浏览器，必须加上-webkit前缀。（现在都会引入postcss，其中有autoprefixer帮助我们实现前缀自动补齐）
+    *注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。*
+
+2. 基本概念
+
+    采用 Flex 布局的元素，称为 Flex 容器（flex container），简称"容器"。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称"项目"。
+    容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。
+    *项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。*
+
+3. （设置了flex的元素）容器的属性 
+    6个属性：
+          [flex-direction] 
+          决定主轴的方向（即项目的排列方向）。
+          >  flex-direction: row | row-reverse | column | column-reverse;  
+                           // 默认水平紧贴着从左到右 | 从右到左 | 从上到下  | 从下到上；
+          [flex-wrap] 
+          默认情况下，项目都排在一条线（又称"轴线"）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。
+          >  flex-wrap: nowrap | wrap | wrap-reverse;
+                      // 默认不换行 | 换行，第一行在上方 | 换行，第一行在下方
+          [flex-flow]
+          是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap
+          >  flex-flow: <flex-direction> || <flex-wrap>;
+          [justify-content]
+          定义了项目在主轴上的对齐方式。会因为flex-direction属性改变默认主轴是水平还是垂直方向。
+          >  justify-content: flex-start | flex-end | center | space-between | space-around;
+                            // 主轴从左往右排列 | 从右往左  | 主轴居中 | 两端对齐，项目之间的间隔都相等 | 每个项目两侧的间隔相等
+          [align-items]
+          定义项目在交叉轴上如何对齐。
+          >  align-items: flex-start | flex-end | center | baseline | stretch;
+                        // 交叉轴的起点对齐 | 终点对齐  | 居中 | 项目中第一行文字的基线对齐 | 默认值，如果项目未设置高度或设为auto，将占满整个容器的高度。
+          [align-content]
+          定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。
+          >  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
+                         // 与交叉轴的起点对齐 | 终点对齐 | 居中 | 与交叉轴两端对齐中间平均分布 | 每根轴线两侧的间隔都相等 | 默认值，轴线占满整个交叉轴
+
+
+4. （被包裹的元素）项目属性
+    6个属性：
+          [order] 
+            定义项目的排列顺序。数值越小，排列越靠前，默认为0。
+            > order: <integer>; // -1， 0， 99
+          [flex-grow]
+            定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
+            > flex-grow: <number>; /* default 0 */ 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
+          [flex-shrink]
+            定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
+            > flex-shrink: <number>; /* default 1 */ 如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。
+          [flex-basis]
+            定义了在分配多余空间之前，项目占据的主轴空间（main size）
+            > flex-basis: <length> | auto; /* default auto */ 它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。
+          [flex]
+            flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
+            > flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] 该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。
+          [align-self]
+            允许单个项目有与其他项目不一样的对齐方式。可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
+            > align-self: auto | flex-start | flex-end | center | baseline | stretch; 该属性可能取6个值，除了auto，其他都与align-items属性完全一致。
+
+
+## 47 BFC是什么？能解决什么问题？
+
+块级 格式化 上下文：  Block Formatting Context
+FC: Formatting Context指的是页面中的一个渲染区域,并且拥有自己的渲染规则.决定子元素如何定位,以及和其他元素的相互作用和联系.
+BFC: 块级格式化上下文, 是一个独立的块级渲染区域,只针对块级元素,有一套自己的渲染规则来约束块级盒子,与外部无关.
+
+满足以下CSS声明的元素就会生成BFC.
+  根元素 html
+  float不为none
+  overflow不为hidden
+  display: inline-block, table-cell, table-caption(注意: 值为table会生成BFC是因为会默认生成一个匿名的table-cell,所以不是table生成了BFC)
+  position: absolute, fixed
+
+BFC在布局中的解决的问题：
+    1 解决margin折叠， 同一个BFC中的两个相邻Box才会发生重叠与方向无关，不过由于上文提到的第一条限制，我们甚少看到水平方向的margin重叠。
+    2 解决浮动： 在清楚浮动带来的问题的解决方案中,一定会回答用BFC清除,那到底是怎么清除的呢? 根本原因就是父级元素创建BFC后,子元素即使浮动也会参与BFC高度的计算.即不会产生高度塌陷的问题.
+    3 多栏布局的BFC实现： 通过BFC约束: BFC的区域不会与float的元素区域重叠, 可以来实现多栏布局.
