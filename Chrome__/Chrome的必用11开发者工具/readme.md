@@ -33,10 +33,15 @@
   > 选中当前的代码块，然后点击console，输入$0，就可以引用这之前选中的代码块。
 
 11. 触发css伪类
-  > elelments =》 styles =》 :hov  可以看到很多伪类。
+  > elements =》 styles =》 :hov  可以看到很多伪类。
 
 12. 隐藏元素的快捷方式
   > 选中代码块 =》 点h
 
 13. 将DOM元素存储在全局临时变量中
   > 选择元素 =》 右击鼠标  =》 存储为全局变量 store as global variable
+
+
+
+<!-- 网络相关的前端面试题  -->
+https://juejin.cn/post/6956046759428636708
