@@ -1,6 +1,6 @@
 # DeliberatePractice
 
-- 中级前端面试秘籍： https://segmentfault.com/a/1190000022684316
+- 中级前端面试秘籍： http://t.zoukankan.com/chengxuyuanaa-p-13084188.html
 
   1. 语义化标签
   2. 
