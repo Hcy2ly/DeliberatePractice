@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      background: red;
+      color: white;
+    }
+
+    #two,
+    #two2,
+    #two3 {
+      /* 直接脱离文档流 不占文档流的空间  定位的对标是根据非static定位的父元素  如果不存在  那就对标 initial container block*/
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      background: blue;
+    }
+
+    .part2,
+    .part3 {
+      margin-top: 40px;
+    }
+
+    .part2,
+    .part3 {
+      /* 不加非static定位所有蓝色的盒子都会对标 initial container block 来绝对定位*/
+      position: relative;
+    }
+
+    #two3{
+      /* 加上 fixed 就是针对 屏幕视口 viewport 来定位 */
+      position: fixed;
+      left: 400px;
+    }
+
+    .part3 {
+      perspective: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box" id="one">One</div>
+  <div class="box" id="two">Two</div>
+  <div class="box" id="three">Three</div>
+  <div class="box" id="four">Four</div>
+
+  <div class="part2">
+    <div class="box" id="one2">One2</div>
+    <div class="box" id="two2">Two2</div>
+    <div class="box" id="three2">Three2</div>
+    <div class="box" id="four2">Four2</div>
+  </div>
+
+  <div class="part3">
+    <div class="box" id="one3">One3</div>
+    <div class="box" id="two3">two3</div>
+    <div class="box" id="three3">Three3</div>
+    <div class="box" id="four3">Four3</div>
+  </div>
+</body>
+
+</html>
+
+<!-- 相对定位的元素并未脱离文档流，而绝对定位的元素则脱离了文档流。
+  在布置文档流中其它元素时，绝对定位元素不占据空间。
+  绝对定位元素相对于最近的非 static 祖先元素定位。当这样的祖先元素不存在时，则相对于ICB（initial container block, 初始包含块） -->

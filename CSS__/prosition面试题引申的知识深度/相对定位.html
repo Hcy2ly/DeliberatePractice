@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .box {
+      display: inline-block;
+      width: 100px;
+      height: 100px;
+      background: red;
+      color: white;
+    }
+
+    #two {
+      position: relative;
+      /* 设置top、left的偏移量之后 文档流害保留盒子原本的高宽之中，偏移的部分会改变盒子的最终位置，但是不会影响周边的其他盒子 */
+      top: 20px;
+      left: 20px; 
+      background: blue;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="box" id="one">One</div>
+  <div class="box" id="two">Two</div>
+  <div class="box" id="three">Three</div>
+  <div class="box" id="four">Four</div>
+</body>
+
+</html>
+
+
+<!-- 相对定位的元素是在文档中的正常位置偏移给定的值，但是不影响其他元素的偏移 -->
+
