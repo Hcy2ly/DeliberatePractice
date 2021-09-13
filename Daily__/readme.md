@@ -1,4 +1,4 @@
-# daily up up
+# day day up
 
 ## 2021 0908
 
@@ -15,7 +15,7 @@
 
     **不同： 不同条件执行相同语句，可以用switch、object简化。普通对象字面量的key只能是字符串，Map对象可以用任何类型的数据作为key，比如对象、正则对象等。**
 
-2. 实现一个 将字符串转换成整数 的函数。[./parseInt+函数实现.js]
+2. 实现一个 将字符串转换成整数 的函数。
    分析： 
         首先，该函数会根据需要丢弃无用的开头空格字符，直到寻找到第一个非空格的字符为止。
         如果第一个非空字符为正或者负号时，则将该符号与之后面尽可能多的连续数字字符组合起来，形成一个有符号整数。
@@ -53,14 +53,31 @@
         范围在 32 位内
         函数不能进行有效的转换时，请返回 0
         *所有的条件 parseInt 都满足*，除了: 1. 范围在 32 位内（含）;  2. 函数不能进行有效的转换：parseInt 返回的是 NaN.
+   解答：[./parseIntPlus.js]
 
 ## 2021 0909
 
 1. 【网页特效】丝滑的 macOS Dock效果
     核心： 当游标在同一个图标上左右移动时，都会影响到左边和右边的图标大小的，达到一个很连贯的效果
-    案例： [丝滑的macOSDock效果.html]
+    案例： [macOSDock.html]
 
-2. 每日算法：滑动窗口最大值问题
+2. 每日算法：滑动窗口的最大值问题
+   案例： 给定一个数组 nums 和滑动窗口的大小 k，请找出所有滑动窗口里的最大值。
+
+            滑动窗口的位置             最大值
+       [1  3  -1] -3  5  3  6  7       3 
+        1 [3  -1  -3] 5  3  6  7       3 
+        1  3 [-1  -3  5] 3  6  7       5 
+        1  3  -1 [-3  5  3] 6  7       5 
+        1  3  -1  -3 [5  3  6] 7       6 
+        1  3  -1  -3  5 [3  6  7]      7
+
+   分析：
+    你可以假设 k 总是有效的，再输入数组不为空的情况下，1 <= k <= 输入数组的大小。因为这道题目的本质就是把一维数组幻化成二维数组并且求出每个数组里面的最大元素。
+
+   解答：[maxSlidingWindow.js]
+    1. 暴力for循环
+    2. 优化：双端队列
 
 ## 2021 0910
 
@@ -217,7 +234,7 @@
       1. Node Element：[NodeElement.png]。 Node 是一个接口，各种类型的 DOM API 对象会从这个接口继承。
       2. 事件参数类型： [Event.png]。 其实就是不同的事件，参数类型也是不一样的，什么方法属性也不一样。
 
-2. 每日算法：翻转字符串里的单词
+2. 每日算法：翻转字符串里的单词 [reverseWords.js]
    案例： 
         输入: "the sky is blue"
         输出: "blue is sky the"
@@ -238,3 +255,195 @@
    解法：
         1- 正则 + JS API
         2- 双端队列 JS原生实现
+
+## 2021 0911 （周六）
+1. 面经知识点总结
+   1. 前端知识体系
+      1. 基础
+         1. html
+         2. css
+         3. js
+      2. typescript
+      3. 计算机网络
+      4. 浏览器
+         1. 同源策略
+         2. 渲染过程
+         3. web安全
+         4. 性能优化
+      5. 数据结构和算法
+      6. 单元测试
+      7. 工程化-基础建设
+         1. node 基础脚手架等
+         2. 基本编译原理
+         3. 构建工具
+            1. webpack [vite]
+            2. rollup
+            3. esbuild
+         4. 组件库
+         5. 微前端
+         6. 低代码
+      8. 监控
+         1. 性能监控
+         2. 异常监控
+      9. 埋点
+      10. 可视化
+          1.  canvas
+          2.  webgl
+      11. 跨端
+          1.  flutter
+          2.  jsbridge
+      12. 小程序
+          1.  微信小程序
+          2.  uniapp
+          3.  taro
+      13. 框架
+          1.  vue
+          2.  react
+          3.  angular
+      14. 团队协作
+          1.  git
+          2.  eslint
+          3.  commitlint
+          4.  code review
+      15. DevOps
+          1.  docker
+          2.  nginx
+          3.  jenkins
+          4.  Kubermetes
+          5.  CI/CD
+   
+   2. 浏览器
+      1. 相关问题
+         1. 从输入网址到看到网页发生了什么
+         2. dom 解析规则
+         3. css、js是否会阻塞渲染
+         4. xss、csrf
+         5. 重绘和重排的区别
+         6. 浏览器缓存是怎样的
+         7. 跨域
+      2. 参考资料
+         1. 浏览器渲染详细过程：重绘、重排和 composite 只是冰山一角 - 掘金
+         2. 浏览器工作原理与实践\_浏览器\_V8原理-极客时间
+         3. 图解 Google V8\_虚拟机\_JavaScript\_Node.js\_前端\_Google-极客时间
+   
+   3. 前端基础 之 CSS
+      1. BFC（块级格式化上下文）
+         1. 规则
+            1. body根元素
+            2. 浮动元素，float不能为none
+            3. position值为absolute，fixed
+            4. display为inline-block、table-cells、flex
+            5. overflow不为visible
+         2. 作用
+            1. BFC不会和float重叠
+            2. BFC可以解决margin重叠
+            3. 计算BFC的高度时，浮动元素也参与计算
+      2. 盒模型
+         1. 普通盒模型content不包括padding，而IE盒模型下content包含padding
+         2. 普通盒模型
+            1. content
+            2. padding
+            3. border
+            4. margin
+         3. IE盒模型
+            1. content
+            2. border
+            3. margin
+      3. 伪类和伪元素
+         1. 伪类  -  伪类用于向某些选择器添加特殊的效果
+         2. 伪元素  -  伪元素用于将特殊的效果添加到某些选择器
+      4. 选择器  -  优先级  -  important > id > class > tagName
+      5. 样式优先级 - 内联样式 > css选择器样式 > link引入的样式
+      6. position
+         1. 相对定位：relative - 相对自身进行定位
+         2. 绝对定位：absolute - 基于父元素定位，没有非static，则根据浏览器。
+         3. 固定定位：fixed - 相对浏览器视口进行绝对定位
+         4. 粘性定位：sticky - 滑动到一定距离，进行固定定位
+      7. 布局方式
+         1. float - 早期布局方式，通过浮动元素方式，需要清除浮动
+         2. flex - 弹性布局，兼容很好
+         3. grid - 网格布局，通过网格方式进行实现，兼容不好
+      8. 层级上下文
+         1. 产生层级的属性
+            1. position值不为static
+            2. transform
+            3. z-index
+            4. will-change
+            5. filter
+            6. opacity
+         2. 彻底搞懂CSS层叠上下文、层叠等级、层叠顺序、z-index
+            1. 普通元素的层叠等级优先由其所在的层叠上下文决定。
+            2. 层叠等级的比较只有在当前层叠上下文元素中才有意义。
+            3. 为什么inline/inline-block元素的层叠顺序要高于block(块级)/float(浮动)元素？网页设计之初最重要的就是文字内容，所以在发生层叠时会优先显示文字内容，保证其不被覆盖。
+            4. 层叠顺序：层叠上下文 background、border  >  z-index<0   >  block块级水平盒子  >  float 浮动盒子  >  inline/inline-block水平盒子  >  z-index: auto /z-index: 0   >  z-index > 0
+            5. 首先先看要比较的两个元素是否处于同一个层叠上下文中：      
+               1.  如果是，谁的层叠等级大，谁在上面（怎么判断层叠等级大小呢？——看“层叠顺序”图）
+               2.  如果不是，请先比较他们所处的层叠上下文的层叠等级。 
+            6. 当两个元素层叠等级相同、层叠顺序相同时，在DOM结构中后面的元素层叠等级在前面元素之上。
+
+
+
+   4. 前端基础 之 JavaScript
+      1. this
+         1. 一般情况下，this指向调用者，箭头函数的this，指向调用的父作用域
+         2. call、apply、bind修改this
+      2. 作用域
+         1. 全局作用域
+         2. 函数作用域
+         3. eval作用域
+         4. 函数内部可以访问外部数据，就形成了作用域链，但是外部没办法访问函数内部的数据
+      3. 闭包
+         1. 函数内部嵌套了一个新的函数，嵌套的函数对外部的函数造成了引用就形成了闭包
+         2. 应用
+            1. 柯里化
+            2. 节流、防抖
+            3. compose组合函数、高阶函数
+      4. 原型链
+         1. 每个对象有一个 __proto__ 属性，表示自己的原型，而函数，是特殊的对象，有一个prototype属性表示自己的原型。
+         2. 查找一个对象的属性，会沿着原型去找，找到了就返回，没找到就返回null。
+      5. 继承
+         1. 继承分为接口继承 或者 实现继承。接口继承只会继承方法签名，而实际继承继承实际的方法。由于函数没有签名。所以ECMAScript只能支持实现继承，而且其继承主要是通过原型链实现的继承。
+      6. 事件循环
+         1. 说说事件循环机制(满分答案来了)  https://blog.csdn.net/LuckyWinty/article/details/104765786/
+         2. 宏任务 - setTimeout、setInterval、script、setImmediate、IO、Promise.resolve
+         3. 微任务 - process.nextTick、Promise、async await、mutation observer
+         4. 浏览器 - 执行宏任务，然后执行该宏任务产生的微任务，若微任务在执行过程中产生了新的微任务，则继续执行微任务，微任务执行完毕后，再回到宏任务中进行下一轮循环。
+      7. 异步
+         1. promise  
+            1. promise 是回调地狱的一个解决方案，有三种状态，pending(等待)、onFulfilled（成功）、onRejected（失败）
+            2. 图灵社区
+         2. generator - 比promise相对友好的一个方案，调用之后会返回一个next和done，done表示是否结束，结束后值为true，每次执行都需要调用next才会继续执行。
+         3. async、await - promise + generator 的语法糖
+      8. 事件流
+         1. 捕获
+         2. 目标
+         3. 冒泡
+      9.  垃圾回收 - 一文搞懂V8引擎的垃圾回收
+      10. 模块规范
+          1.  esmodule
+              1.  值拷贝
+              2.  静态模块、可被tree shaking
+          2.  commonjs
+              1.  值引用
+              2.  可动态加载
+              3.  可被缓存
+              4.  默认严格模式
+      11. 数据类型
+          1.  基本类型
+              1.  number
+              2.  string
+              3.  undefined
+              4.  null
+              5.  boolean
+              6.  symbol
+              7.  bigint
+          2.  引用类型
+              1.  array
+              2.  object
+          3.  判断
+              1.  typeof 用来判断基本类型，instanceof 判断引用类型
+              2.  Object.prototype.toString.call() 终极武器
+              3.  
+## 2021 0912 （周日）
+
+## 2021 0913
