@@ -498,7 +498,150 @@
          6. 数据链路层 - 负责物理层上互联、节点之间的通信传输，将0，1序列划分为具有意义的数据帧传送给对方（数据帧的生成和接收）
          7. 物理层 - 负责哦，1比特流与电压的高低，灯光闪灭的转换。
 
+   6. 前端工程化
+      1. AST抽象语法树  - 通过词法分析和语法分析生成AST、可以通过对AST的修改，生成新的代码
+      2. Babel - ES next 转 es5
+      3. 代码格式化
+         1. ESlint
+         2. prettier
+      4. postcss  - 解决css兼容问题
+      5. 微前端  - qiankun
+      6. commitlint[git——commit规范指南-简书]
+         1. commit规范
+         2. commitizen 校验commit
+      7. vite
+         1. 基于esbuild和rollup实现，内部采用esmodule进行解析，不需要编译，所以会比webpack快很多，并且esbuild是基于go实现的，可能有语言优势。
+      8. 模块化
+         1. amd
+         2. cmd
+         3. commomjs (node)
+            1. require 支持动态加载
+            2. require 可以被缓存
+            3. require 也可以静态加载
+            4. require 是基于值拷贝
+         4. esmodule （浏览器）
+            1. import from 静态加载，可以被tree shaking
+            2. import() 动态加载，返回promise
+            3. esmodule 值引用
+
+   7. node
+      1. 模块查找规则
+         1. 模块支持的格式：js、json、node（c++编译后生成的模块）
+         2. 查找是否内置模块
+         3. 查找是否自定义模块 如/ ../ ./等
+         4. 查找是否有node_modules模块，会从当前目录的上一级一直查询到根目录下的node_modules目录
+         5. 从环境变量的NODE PATH加载
+         6. 报错：找不到模块
+         7. 核心模块也可以使用require('node:http')，将会跳过缓存，直接从lib目录进行加载  node16以上支持
+         8. 可以通过require.resolve(xxx) 获取模块的加载路径
+      2. 模块实现原理
+         1. node 在加载模块的时候，会对模块进行缓存，引入多次也只会加载一次。
+         2. (function(exports,require,modules,__filename,__dirname)(//模块代码实际存在于此处))
+      3. stream
+         1. readStream 可读流
+         2. writeStream 可写流
+         3. duplex 双工流
+         4. transform 转换流
+            1. 压缩流
+            2. 加密流
+      4. 非阻塞异步IO  - [Nodejs理论实践值《异步非阻塞IO与事件循环》-掘金]
+      5. 中间件 - [深入浅出的node中间件原理-掘金]
+
+   8. webpack
+      1. 编译流程
+         1. 初始化 entryOptions
+         2. 初始化内部解析
+         3. 确定编译环境
+         4. 开始编译和以监听模式进行编译
+         5. 编译之前
+         6. 编译
+         7. 开始构建 生成 compiler 对象
+         8. 新的构建 产生compilation对象
+         9. 构建结束 调用 make 
+         10. 编译结束
+         11. 输出文件
+         12. 编译完成
+      2. 编译优化
+         1. 优化分析
+            1. 体积分析：webpack-bundle-analyzer
+            2. 速度分析：speed-measure-webpack-plugin
+            3. 日志分析：webpack -stats
+         2. 优化方案
+            1. 使用 dllPlugin
+            2. babel-loader 添加 cacheDirectory
+            3. 使用 thread-loader 优化 loader
+            4. 使用高版本的node 和 webpack
+            5. 开启tree shaking 和 scope hoisting
+            6. webpack5 配置长缓存
+            7. 使用 css-minimizer-webpack-plugin 压缩 css
+            8. 使用terser-webpack-plugin 压缩js，并去掉无用的js
+            9. webpack5 的 module-federation
+      3. HMR
+         1. webpack-dev-server 在启动的时候会给entry去注入webpack、hot、dev-server
+         2. 注入 webpack-dev-server/client/index.js
+         3. 判断是否存在webpack.HotModuleReplacementPlugin(作用：这个插件会注入一个module.hot的一个对象，该对象提供了一些方法，用于更新。)
+         4. 监听webpack hooks 的 compile、done、invalid 钩子
+         5. 初始化 express、webpack-dev-middleware
+         6. 启动express、socket服务 ---- socket服务主要用于监听一些特定的事件进行更新处理
+         7. webpack-dev-middleware会以watch的形式监听文件更改，当文件发生变化的时候，会生成xxx.hot-update.js (当前的文件) 和 xxx.hot-update.json （下次更改的hash），然后创建script进行更新。
+      4. tree shaking （看文档）
+         1. 基于es6的模块机制实现，主要是因为es6的模块是静态的  import from，可以被webpack解析，而require()，import()是可以动态的
+         2. 如果有些模块有副作用需要在 package.json 设置 sideEffects:true。
+      5. 核心
+         1. entry - 入口文件
+         2. output - 输出的路径
+         3. loader
+            1. webpack只支持js进行编译，而其他文件都需要loader进行转换，loader本质是个函数，每个loader都会拿到上一个loader所处理的结果，并在当前loader进行处理，然后并返回，传递给下一个loader。
+            2. 可以通过loader-runner进行调试，schema-utils对loader的参数进行校验
+            3. Loader Interface | webpack 中文文档
+         4. plugin
+            1. 作用
+               1. 监听webpack的生命周期，在对应的生命周期进行相应的处理。
+            2. 原理
+               1. plugin是一个类，需要提供一个apply方法，apply内接受compiler对象，compiler是webpack构建期间所生成的编译对象，可以通过监听compiler.hook.xxx.tap或者tapAsync,来实现插件，其中还有一个重要的对象是compilation，而compilation是webpack每次产生新的构建就会生成一个对象，其中compiler在整个构建期间只会有一个，而compilation会有多个。
+               2. compiler和compilation都继承于tapable，而tapable其实是类似于node的eventEmitter的一个库，插件主要就是通过compiler或者compilation对webpack的构建周期进行各种处理的一个方式。
+      6. tapable
+         1. 同步
+            1. SyncHook
+            2. SyncBailHook
+            3. SyncWaterfallHook
+            4. SyncLoopHook
+         2. 异步
+            1. 并行
+               1. AsyncParallelHook
+               2. AsyncParallelBailHook
+            2. 串行
+               1. AsyncSeriesHook
+               2. AsyncSeriesBailHook
+               3. AsyncSeriesWaterfallHook
+         3. 类型
+            1. ball - 当前函数有返回值，就停止执行
+            2. waterfall - 调用时，值会传递给下一个函数
+            3. loop - 当返回true表示继续循环，返回undefined结束循环。
+         4. 注册方式 - 同步通过tap进行调用，异步调用tapAsync、tapPromise
+         5. 调用方式 - 同步通过call进行调用，异步通过callAsync、promise
+
+   9. 前端性能优化
+      1.  文章
+          1.  常见的性能优化方案
+          2.  一些性能指标
+   
+   10. 前端监控
+       1. 文章： 一篇讲透自研的前端错误监控
+   
+   11. 数据结构和算法
+       1.  文章
+           1.  宫水三叶的刷题日记
+           2.  算法面试通关40讲\_算法面试\_LeetCode刷题
+           3.  javascript-algorithms
+           4.  VisuAlgo \- 数据结构和算法动态可视化
+       2.  书
+           1.  算法导论
+           2.  剑指offer
+           3.  小灰的漫画算法
 
 ## 2021 0912 （周日）
 
 ## 2021 0913
+
+
