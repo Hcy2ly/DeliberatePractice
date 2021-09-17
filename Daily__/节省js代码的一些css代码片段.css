@@ -1,0 +1,52 @@
+/* 1. 限制显示的行数 */
+@supports (-webkit-line-clamp: 2) {
+    .line-clamp {
+        /* Remove the made up max-height */
+        max-height: none;
+
+        /* Those three properties are mandatory, so is overflow: hidden that we defined earlier */
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+    }
+}
+
+/* 2. 重要的元素始终显示在页面上 */
+.top {
+    position: sticky;
+    top: 20px;
+}
+
+/* 3. 平滑滚动 */
+html {
+    scroll-behavior: smooth;
+}
+
+@media(prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+}
+
+/* 4. 滚动到吸附点 */
+/* 滑动的盒子设置 */
+/* 先在滚动的父级盒子上设置滚动吸附方向 */
+.scroll-box {
+    scroll-snap-type: x mandatory;
+    /* x轴吸附 */
+}
+
+/* 再设置子容器来标明吸附目标 */
+
+.target-scroll-box {
+    scroll-snap-align: start;
+}
+
+.smooth-scroll {
+    scroll-behavior: smooth;
+    /* 提示浏览器用户正常的滚动机制行为 */
+}
+/* 注意需要结合 IntersectionObserver */
+
+/* 5. 图片延迟加载 */
+/* <img src='' loading="lazy" /> */
