@@ -5,7 +5,7 @@ const parseIntPlus = function (s) {
   // 判断 parseInt 的结果是否为 NaN，是则返回 0
   if (isNaN(number)) {
     return 0;
-  } else if (number < Math.pow(-2, 31) || number > Math.pow(2, 31) - 1) {
+  } else if (number < Math.pow(-2, 31) || number > Math.pow(2, 31) - 1) { // .pow(x, y) 方式表示x的y次幂（次方）
     // 超出
     return number < Math.pow(-2, 31) ? Math.pow(-2, 31) : Math.pow(2, 31) - 1;
   } else {

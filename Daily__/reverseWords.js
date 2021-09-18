@@ -1,3 +1,5 @@
+// 题目： 字符串单词反转
+
 // 正则匹配 + js API
 var reverseWords = function (s) {
   return s.trim().replace(/\s+/g, ' ').split(' ').reverse().join(' ')
