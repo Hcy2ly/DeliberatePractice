@@ -1,4 +1,4 @@
-// 二叉树遍历
+// 二叉树的层序遍历
 
 // 广度优先 - 通过每层比较取val然后push
 var levelOrder = function (root) {
