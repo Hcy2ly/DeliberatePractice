@@ -736,7 +736,7 @@
 
 1. 勿忘国耻，吾辈自强。
 
-2. 每日算法：二叉树的中序遍历. []
+2. 每日算法：二叉树的中序遍历. [inorderTraversal.js]
 
 3. DevOps的概念解析: https://www.zhihu.com/question/58702398
    简言之，DevOps 是一种工作流程。
@@ -773,5 +773,9 @@
 
 6. Web 性能优化：使用 CSS font-display 控制字体加载和替换
 
+
+## 2021 0920
+
+1. 每日算法： 二叉树的前序遍历[preorderTraversal.js]
 
    
