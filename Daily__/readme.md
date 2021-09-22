@@ -804,14 +804,19 @@
       2. js [isPalindromeString.js]
 
 3. 什么情况下 return (a == 1 &&  a == 2 && a == 3) === true?
-  答案：这里考验的是隐式转换。
-  const a = {
-    i: 1,
-    toString: function () {
-      return a.i++;
+  分析：
+    这里考验的是隐式转换，==为宽松相等，===为严格相等。当操作数 B 类型为 Number 时，如果希望在宽松相等的情况下整个表达式的结果返回 true，操作数 A 必须满足下面三个条件之一：
+      1. 操作数 A 类型为 String，并且调用 +A 的结果与 B 严格相等
+      2. 操作数 A 类型为 Boolean，并且调用 +A 的结果与 B 严格相等
+      3. 操作数 A 类型为 Object，并且调用 toString 或者 ValueOf 返回的结果与 B 严格相等
+  答案：
+    const a = {
+      i: 1,
+      toString: function () {
+        return a.i++;
+      }
     }
-  }
 
-  if (a == 1 && a == 2 && a == 3) {
-    console.log('Hello World!');
-  }
+    if (a == 1 && a == 2 && a == 3) {
+      console.log('Hello World!');
+    }
