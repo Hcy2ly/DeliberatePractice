@@ -802,3 +802,16 @@
   解答：
       1. api: split + reverse
       2. js [isPalindromeString.js]
+
+3. 什么情况下 return (a == 1 &&  a == 2 && a == 3) === true?
+  答案：这里考验的是隐式转换。
+  const a = {
+    i: 1,
+    toString: function () {
+      return a.i++;
+    }
+  }
+
+  if (a == 1 && a == 2 && a == 3) {
+    console.log('Hello World!');
+  }
