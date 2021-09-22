@@ -17,10 +17,10 @@ var reverseWords2 = function (s) {
   let left = 0;
   let right = s.length - 1
   let words = ''
-  let curWord = '' 
+  let curWord = ''
 
   while (s[left] === ' ') left++; // 左边清除空字符串
-  while (s[right] === ' ') right--; // 右边清除空字符创
+  while (s[right] === ' ') right--; // 右边清除空字符串
 
   while (left <= right) {
     if (s[left] === ' ') {

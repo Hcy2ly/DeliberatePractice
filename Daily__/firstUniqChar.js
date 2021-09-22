@@ -1,7 +1,8 @@
-// 第一个非重复字符
+// 题目：第一个非重复字符
+
 function firstUniqChar() {
   if (!s) return " " // 字符串为空或者不存在等 返回“”
-  
+
   let map = new Map()
   for (let c of s) {
     if (map.has(c)) {
