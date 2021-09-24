@@ -4,32 +4,36 @@
  * @param {number} target
  * @return {number}
  */
-var search = function (nums, target) {
+var binarySearch = function (nums, target) {
   let index = -1;
   if (!nums.length) return // 数组不存在
 
   const step = (start, end) => {
     if (start > end) return
+
     let middle = Math.floor((end + start) / 2); // 中间偏前的index
+
     if (nums[middle] === target) {
       index = middle
       return
-    }
-    if (nums[middle] > target) {
-      step(start, middle)
-    }
-    if (nums[middle] < target) {
-      step(middle, end)
+    } else if (nums[middle] > target) {
+      step(start, middle - 1)
+    } else {
+      step(middle + 1, end)
     }
   }
+
   step(0, nums.length - 1)
   return index
 };
 
 
 const arr = [-1, 0, 3, 5, 9, 12]
-const target = 2
-console.log(search(arr, target))
+const arr2 = [2]
+const target = 5
+const target2 = 2
+console.log(binarySearch(arr, target))
+console.log(binarySearch(arr2, target2))
 
 // 思路：
 // 设定左右指针
@@ -45,19 +49,23 @@ console.log(search(arr, target))
  * @param  {number} val  [value]
  * @return {number}      [index]
  */
- function binarySearch(arry, val) {  
-	let start = 0
-	let end = arry.length - 1
-	while (start <= end) {
-		let mid = start + Math.floor((end - start) / 2)
-		if (arry[mid] < val) {
-			start = mid + 1
-		} else if (arry[mid] > val) {
-			end = mid - 1
-		} else {
-			return mid
-		} 
-	} 
-	return -1
-} 
-module.exports = binarySearch
+function binarySearch2(arr, val) {
+  let start = 0
+  let end = arr.length - 1
+  while (start <= end) {
+    let mid = start + Math.floor((end - start) / 2)
+    if (arr[mid] < val) {
+      start = mid + 1
+    } else if (arr[mid] > val) {
+      end = mid - 1
+    } else {
+      return mid
+    }
+  }
+  return -1
+}
+
+module.exports = binarySearch2
+
+console.log(binarySearch2(arr, target))
+console.log(binarySearch2(arr2, target2))
