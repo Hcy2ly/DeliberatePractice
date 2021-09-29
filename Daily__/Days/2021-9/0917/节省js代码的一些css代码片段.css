@@ -29,15 +29,13 @@ html {
 }
 
 /* 4. 滚动到吸附点 */
-/* 滑动的盒子设置 */
-/* 先在滚动的父级盒子上设置滚动吸附方向 */
+/* 滑动的盒子设置  先在滚动的父级盒子上设置滚动吸附方向 */
 .scroll-box {
     scroll-snap-type: x mandatory;
     /* x轴吸附 */
 }
 
 /* 再设置子容器来标明吸附目标 */
-
 .target-scroll-box {
     scroll-snap-align: start;
 }
