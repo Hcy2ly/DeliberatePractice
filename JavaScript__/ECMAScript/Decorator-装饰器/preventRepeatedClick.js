@@ -1,5 +1,5 @@
 /**
- * 防止重复点击
+ * 防止重复点击 - 装饰器
  */
 export function preventRepeatedClick(loading) {
   return function (target, key, descriptor) {
@@ -25,6 +25,9 @@ export function preventRepeatedClick(loading) {
 }
 
 // 用法
+// let isClick = true
+// ...
+// @preventRepeatedClick('isClick')
 // async handleSubmit() {
 //   const res = await fn()
 //   if (res && res.success) {
