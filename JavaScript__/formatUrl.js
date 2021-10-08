@@ -11,5 +11,5 @@ const formatUrl = (url, expectFormat = 'https://') => {
   return url.replace(/^\/\/|http:\/\/|https:\/\//, expectFormat)
 }
 
-const url = '//kjj-s.duibatest.com.cn/s/Kt31NDU0OTU'
+const url = '//kjj-s.test.com.cn/s'
 console.log(formatUrl(url))
