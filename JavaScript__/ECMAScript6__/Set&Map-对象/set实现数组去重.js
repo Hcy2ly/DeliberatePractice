@@ -3,3 +3,6 @@ function dedupe(array) {
 }
 
 dedupe([1, 1, 2, 3]) // [1, 2, 3]
+
+
+// Array.from

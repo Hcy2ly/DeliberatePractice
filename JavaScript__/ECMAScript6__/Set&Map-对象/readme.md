@@ -69,4 +69,43 @@
 
 ## Map
 
-1. 含义和基本用法
+1. 含义
+  JavaScript 的对象（Object），本质上是键值对的集合（Hash 结构），但是传统上只能用字符串当作键。
+  ES6 提供了 Map 数据结构，类似对象，也是键值对的集合，但是“键”的范围不限于字符串，各种类型的值（包括对象）都可以当作键。
+  其实，Object 结构提供了“字符串—值”的对应，Map 结构提供了“值—值”的对应，是一种更完善的 Hash 结构实现。如果你需要“键值对”的数据结构，Map 比 Object 更合适。
+
+2. 基本用法
+  const m = new Map(); // new 一个Map结构 实例
+  const o = {p: 'Hello World'};
+
+  m.set(o, 'content') // set方法设置键和默认值  键可以是任何类型
+  m.get(o) // "content" // get通过键获取值
+
+  m.has(o) // true   返回boolean值，告知map结构是否含有某个键
+  m.delete(o) // true   返回boolean值，告知map结构是否删除成功某个键
+  m.has(o) // false   键是唯一的
+
+3. 用法的注意点
+  1. 如果 Map 的键是一个简单类型的值（数字、字符串、布尔值），则只要两个值严格相等，Map 将其视为一个键，比如0和-0就是一个键，布尔值true和字符串true则是两个不同的键。另外，undefined和null也是两个不同的键。虽然NaN不严格相等于自身，但 Map 将其视为同一个键。
+  2. 如果对同一个键多次赋值，后面的值将覆盖前面的值。
+  3. 如果读取一个未知的键，则返回undefined。
+  4. 如果 Map 的键是引用类型的值（数组、普通对象等），同样的值的两个实例，在 Map 结构中被视为两个键。
+
+4. 属性
+  1. size // size属性返回 Map 结构的成员总数。 const map = new Map(); map.set('foo', true).set('bar', false); map.size // 2
+  2. Map.prototype.set(key, value) // set方法设置键名key对应的键值为value，然后返回整个 Map 结构。如果key已经有值，则键值会被更新，否则就新生成该键。set方法返回的是当前的Map对象，因此可以采用链式写法。
+  3. Map.prototype.get(key) // get方法读取key对应的键值，如果找不到key，返回undefined。
+  4. Map.prototype.has(key) // has方法返回一个布尔值，表示某个键是否在当前 Map 对象之中。
+  5. Map.prototype.delete(key) // delete方法删除某个键，返回true。如果删除失败，返回false。
+  6. Map.prototype.clear() // clear方法清除所有成员，没有返回值。
+
+5. 操作方法 [map.js]
+
+6. 遍历方法
+  Map 结构原生提供三个遍历器生成函数和一个遍历方法。
+    1. Map.prototype.keys()：返回键名的遍历器。
+    2. Map.prototype.values()：返回键值的遍历器。
+    3. Map.prototype.entries()：返回所有成员的遍历器。
+    4. Map.prototype.forEach()：遍历 Map 的所有成员。
+
+7. 与其他数据结构的互相转换

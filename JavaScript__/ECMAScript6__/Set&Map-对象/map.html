@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="myDiv">
+    hello world!
+  </div>
+</body>
+
+<script>
+  // 普通对象的键值对  - 【键=>字符串，值】
+  const obj = {};
+  const element = document.getElementById('myDiv');
+  console.log(element) // <div id="myDiv"> hello world! </div>
+  obj[element] = 'metadata';
+  console.log(obj) // {[object HTMLDivElement]: 'metadata'}  // 说明（键：DOM节点） 被转化成了字符串存入
+  // 通过key获取value
+  console.log(obj['[object HTMLDivElement]']) // "metadata"
+  console.log(obj[element]) //
+
+  // Map对象的键值对 就是真正意义上的 【键，值】
+  const map = new Map();
+  map.set(element, 'metadata')
+  console.log(map) // Map(1) {div#myDiv => 'metadata'} // 说明键值存进去的时候没有改变
+  // 通过key获取value
+  console.log(map.get(element)) // "metadata"
+</script>
+
+</html>
