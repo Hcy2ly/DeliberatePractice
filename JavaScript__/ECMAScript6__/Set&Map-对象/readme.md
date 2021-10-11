@@ -109,3 +109,4 @@
     4. Map.prototype.forEach()：遍历 Map 的所有成员。
 
 7. 与其他数据结构的互相转换
+    1. Map转为数组
