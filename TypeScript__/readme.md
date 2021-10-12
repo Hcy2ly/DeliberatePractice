@@ -21,3 +21,12 @@
       console.log(List.B) // 2
       console.log(List.C) // 3
   3. 
+
+3. 类型定义之 联合类型 和 交叉类型。
+  联合类型： string | number
+  交叉类型： type xx = (interface A) & (interface B)
+  一个类型为两个类型的交叉类型 写法：
+    1. type C = (interface A) & (interface B)
+    2. interface C extends A {
+      ...B
+    }
