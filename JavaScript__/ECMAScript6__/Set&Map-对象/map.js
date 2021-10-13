@@ -114,9 +114,3 @@ for (let [key, value] of mm) {
 // [ 'T', 'yes' ]
 
 // 总结: Map 结构的默认遍历器接口（Symbol.iterator属性），其实就是entries方法。即 map[Symbol.iterator] === map.entries // true
-
-
-// Map数据结构与其他数据结构的相互转化
-// 1. Map 转为数组最方便的方法，就是使用扩展运算符（...）。
-const map_1 = new Map().set(true, 7).set({ foo: 3 }, ['abc']);
-const arr = [...map]
