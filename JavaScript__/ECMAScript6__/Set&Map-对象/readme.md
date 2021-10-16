@@ -116,10 +116,128 @@
 
 ## WeakMap
 
-1. WeakMap 与 Map 的区别在 api 上的区别主要有两个
-  一是没有遍历操作（即没有 values(), keys(), entries() 方法），也没有size属性。因为它没法确认所有的键值，某个键名是否完全不可预测，跟垃圾回收机制是否运行相关。这一刻还可以取到键值，下一刻就被垃圾回收了，为了防止出现这种不确定性，就规定直接不能取到键值。
-  二是没有clear清空操作，无法清空。因为没法确认长度，所以没法清空。
-  so，WeakMap对象只有四个属性方法可用，set()、get()、delete()、has()
+1. 含义
+  WeakMap结构与Map结构类似，也是用于生成键值对的集合。
+  WeakMap与Map的区别有两点：
+    一是WeakMap只接受对象（除null之外）的为键名，不接受其他类型的值作为键名。
+    二是WeakMap的键名所指向的对象，不计入垃圾回收机制。
+      WeakMap的设计目的在于，有时我们想在某个对象上存一些数据，但是会造成对这个对象的引用，例如
+        const e1 = document.getElementById('foo');
+        const e2 = document.getElementById('bar');
+        const arr = [
+          [e1, 'foo 元素'],
+          [e2, 'bar 元素'],
+        ];
+      上面代码中，e1和e2是两个对象，我们通过arr数组对这两个对象添加一些文字说明。这就形成了arr对e1和e2的引用。
+      一旦不再需要这两个对象，我们就必须手动删除这个引用，否则垃圾回收机制就不会释放e1和e2占用的内存。
+        // 不需要 e1 和 e2 的时候，必须手动删除引用
+        arr [0] = null;
+        arr [1] = null;
+      上面这样的写法显然很不方便。一旦忘了写，就会造成内存泄露。
+      WeakMap 就是为了解决这个问题而诞生的，它的键名所引用的对象都是弱引用，即垃圾回收机制不将该引用考虑在内。因此，只要所引用的对象的其他引用都被清除，垃圾回收机制就会释放该对象所占用的内存。也就是说，一旦不再需要，WeakMap 里面的键名对象和所对应的键值对会自动消失，不用手动删除引用。
+      基本上，如果你要往对象上添加数据，又不想干扰垃圾回收机制，就可以使用 WeakMap。一个典型应用场景是，在网页的 DOM 元素上添加数据，就可以使用WeakMap结构。当该 DOM 元素被清除，其所对应的WeakMap记录就会自动被移除。
+        const wm = new WeakMap();
+        const element = document.getElementById('example');
+        wm.set(element, 'some information');
+        wm.get(element) // "some information"
+        上面代码中，先新建一个 WeakMap 实例。然后，将一个 DOM 节点作为键名存入该实例，并将一些附加信息作为键值，一起存放在 WeakMap 里面。这时，WeakMap 里面对element的引用就是弱引用，不会被计入垃圾回收机制。也就是说，上面的 DOM 节点对象除了 WeakMap 的弱引用外，其他位置对该对象的引用一旦消除，该对象占用的内存就会被垃圾回收机制释放。WeakMap 保存的这个键值对，也会自动消失。
+        总之，WeakMap的专用场合就是，它的键所对应的对象，可能会在将来消失。所以才说WeakMap结构有助于防止内存泄漏。
+        注意，WeakMap 弱引用的只是针对键名，而不是键值。键值依然是正常引用。键名的引用要是没了，就会消失。
+          const wm = new WeakMap();
+          let key = {};
+          let obj = { foo: 1 };
+          wm.set(key, obj); // 这里用key作为引用
+          wm.set(obj, key); // 这里用obj作为引用
 
-2. 如何观察 WeakMap 里面的引用是否消失？
+          obj = null; // obj引用地址销毁
+          console.log(wm.get(key)); // Object {foo: 1}
+          console.log(wm.get(obj)); // undefined
+
+2. 语法
+  WeakMap 与 Map 的区别在 api 上的区别主要有两个：
+    一是没有遍历操作（即没有 values(), keys(), entries() 方法），也没有size属性。因为它没法确认所有的键值，某个键名是否完全不可预测，跟垃圾回收机制是否运行相关。这一刻还可以取到键值，下一刻就被垃圾回收了，为了防止出现这种不确定性，就规定直接不能取到键值。
+    二是没有clear清空操作，无法清空。因为没法确认长度，所以没法清空。
+    so，WeakMap对象只有四个属性方法可用，set()、get()、delete()、has()
+ 
+3. 如何观察 WeakMap 里面的引用是否消失？
+  Chrome 浏览器的 Dev Tools 的 Memory 面板，有一个垃圾桶的按钮，可以强制垃圾回收（garbage collect）。这个按钮也能用来观察 WeakMap 里面的引用是否消失。
+  或者知道key的话最简单就是 get() 方法
+
+4. WeakMap 用途
+    1. 经典场景
+      ```
+          let myWeakmap = new WeakMap();
+          myWeakmap.set(
+            document.getElementById('logo'),
+            {timesClicked: 0})
+          ;
+          document.getElementById('logo').addEventListener('click', function() {
+            let logoData = myWeakmap.get(document.getElementById('logo'));
+            logoData.timesClicked++;
+          }, false);
+      ```
+      上面代码中，document.getElementById('logo')是一个 DOM 节点，每当发生click事件，就更新一下状态。我们将这个状态作为键值放在 WeakMap 里，对应的键名就是这个节点对象。一旦这个 DOM 节点删除，该状态就会自动消失，不存在内存泄漏风险。
+  
+    2. 部署私有属性
+      ```
+        const _counter = new WeakMap();
+        const _action = new WeakMap();
+
+        class Countdown {
+          constructor(counter, action) {
+            _counter.set(this, counter);
+            _action.set(this, action);
+          }
+          dec() {
+            let counter = _counter.get(this);
+            if (counter < 1) return;
+            counter--;
+            _counter.set(this, counter);
+            if (counter === 0) {
+              _action.get(this)();
+            }
+          }
+        }
+
+        const c = new Countdown(2, () => console.log('DONE'));
+
+        c.dec()
+        c.dec()
+        // DONE
+      ```
+      Countdown类的两个内部属性，是实例的弱引用，当实例被删除的时候，他们就就消失了，不会造成内存泄漏。
+
+
+## WeakRef （ES2021推出来的）
+  WeakSet 和 WeakMap 是基于弱引用的数据结构，ES2021 更进一步，提供了 WeakRef 对象，用于直接创建对象的弱引用。
+    const  target = {}
+    let wr = new WeakRef(target)
+    这里，wr就是一个 WeakRef 的实例，属于对target的弱引用，垃圾回收机制不会计入这个引用，wr的引用不会妨碍原始对象target被垃圾回收机制清除。
+  WeakRef 实例对象有一个deref()方法，如果原始对象存在，该方法返回原始对象；如果原始对象已经被垃圾回收机制清除，该方法返回undefined。
+    let target = {};
+    let wr = new WeakRef(target);
+
+    let obj = wr.deref();
+    if (obj) { // target 未被垃圾回收机制清除
+      // ...
+    }
+    // deref()方法可以判断原始对象是否已被清除
+  弱引用对象的一大用处，就是作为缓存，未被清除时可以从缓存取值，一旦清除缓存就自动失效。
+    function makeWeakCached(f) {
+      const cache = new Map();
+      return key => {
+        const ref = cache.get(key);
+        if (ref) {
+          const cached = ref.deref();
+          if (cached !== undefined) return cached;
+        }
+
+        const fresh = f(key);
+        cache.set(key, new WeakRef(fresh));
+        return fresh;
+      };
+    }
+    const getImageCached = makeWeakCached(getImage);
+    // makeWeakCached()用于建立一个缓存，缓存里面保存对原始文件的弱引用。
+    注意，标准规定，一旦使用WeakRef()创建了原始对象的弱引用，那么在本轮事件循环（event loop），原始对象肯定不会被清除，只会在后面的事件循环才会被清除。
 
