@@ -70,3 +70,6 @@ var removeNthFromEnd = function (head, n) {
 
   return pre.next;
 };
+
+// 保留疑惑
+// 1. 为啥只有一个结点和两个结点的时候  删除第一个结点的结果不一样。
