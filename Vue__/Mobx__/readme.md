@@ -1,6 +1,7 @@
 # mobx
 
 1.  behavior 接受一个数组，数组的元素为 storeBindingsBehavior, computedBehavior， observerBehavior 等。
+
 2.  需要先引入 behaviors 再引入行为包，再使用行为。
 
     import computedBehavior from 'miniprogram-computed'
