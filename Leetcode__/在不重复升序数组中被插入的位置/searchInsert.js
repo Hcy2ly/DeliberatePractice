@@ -18,7 +18,7 @@ var searchInsert = function (nums, target) {
 
   return start; // 以左节点为最终插入节点
 }
-const nums0 = [1, 3, 5, 6]
+const nums0 = [1, 3, 5, 6] // 可插入5前 也可插入5后
 const target0 = 5
 console.log(searchInsert(nums0, target0))
 
