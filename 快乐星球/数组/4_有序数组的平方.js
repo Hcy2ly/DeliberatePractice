@@ -1,6 +1,6 @@
 /*****
  * 有序数组的平方
- * 考验 双指针 思维
+ * ！！！考验 双指针 思维
 */
 
 // 题目
@@ -33,3 +33,19 @@ function sortedSquares(arr) {
 
 const arr = [-3, -2, 1, 4, 5, 8]
 console.log(sortedSquares(arr))
+
+// ts 收留一个ts版本
+// function sortedSquares(nums: number[]): number[] {
+//   let left: number = 0, right: number = nums.length - 1;
+//   let resArr: number[] = new Array(nums.length);
+//   let resArrIndex: number = resArr.length - 1;
+//   while (left <= right) {
+//     if (Math.abs(nums[left]) < Math.abs(nums[right])) {
+//       resArr[resArrIndex] = nums[right--] ** 2;
+//     } else {
+//       resArr[resArrIndex] = nums[left++] ** 2;
+//     }
+//     resArrIndex--;
+//   }
+//   return resArr;
+// };
