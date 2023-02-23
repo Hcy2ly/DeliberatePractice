@@ -17,9 +17,10 @@ function isJSON(value) {
         Object.prototype.toString.call(JSON.parse(value)) === "[object Object]"
       ) {
         return true;
-      } else {
-        return false;
       }
+        
+      return false;
+      
     } catch (e) {
       return false;
     }
