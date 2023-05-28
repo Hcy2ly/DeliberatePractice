@@ -1,4 +1,4 @@
-# Iterator (遍历器) 
+# Iterator (遍历器)
 
 1. 概念
     JavaScript 有表示 ‘集合’ 的数据结构，主要是数组（Array）和对象（Object），ES6添加了 Map 和 Set 对象。这样就有了四种数据集合。用户还可以组合使用他们。比如数组的成员是Map，Map的成员是对象这样。于是就需要一种统一的接口机制，来处理所有不同的数据结构。
@@ -31,7 +31,7 @@
   至于属性名Symbol.iterator，它是一个表达式，返回Symbol对象的iterator属性，这是一个预定义好的、类型为 Symbol 的特殊值，所以要放在方括号内。
   const obj = { // 含有 Symbol.iterator 属性方法，可遍历，可使用 for...of
     [Symbol.iterator] : function () { // 遍历器返回一个 next 指针
-      return { 
+      return {
         next: function () { // next 方法，返回一个对象，有两个属性 {value, done}
           return {
             value: 1,
@@ -65,13 +65,13 @@
 
 4. 为啥对象没有部署 Iterator 接口
     因为对象的哪个属性先遍历，哪个属性后遍历是不确定的，需要开发者手动指定。
-    
+
     **本质上，遍历器是一种线性处理，对于任何非线性的数据结构，部署遍历器接口，就等于部署一种线性转换。**不过，严格地说，对象部署遍历器接口并不是很必要，因为这时对象实际上被当作 Map 结构使用，ES5 没有 Map 结构，而 ES6 原生提供了，*so我们把对象转换成具备Iterator接口的数据结构（比如Map对象）就可。*
-    
+
     一个对象如果要具备可被for...of循环调用的 Iterator 接口，就必须在Symbol.iterator的属性上部署遍历器生成方法（原型链上的对象具有该方法也可）。
 
 5. 给对象部署 Iterator 接口 [Iterator.js]
-    一是在原型链上部署 
+    一是在原型链上部署
     二是直接在当前对象部署
     三是直接把数组的原生 Array.prototype[Symbol.iterator] 复制过来
 
@@ -134,16 +134,16 @@
         yield 'world';
       }
     };
-    
+
 9. 遍历器对象
   遍历器对象除了具有next()方法，还可以具有return()方法和throw()方法。如果你自己写遍历器对象生成函数，那么next()方法是必须部署的，return()方法和throw()方法是否部署是可选的。
   return()方法的使用场合是，如果for...of循环提前退出（通常是因为出错，或者有break语句），就会调用return()方法。如果一个对象在完成遍历前，需要清理或释放资源，就可以部署return()方法。
 
-10. for ... of 
+10. for ... of
     ES6 借鉴 C++、Java、C# 和 Python 语言，引入了for...of循环，作为遍历所有数据结构的统一的方法。
-    
+
     一个数据结构只要部署了[Symbol.iterator]属性，就被视为具有 iterator 接口，就可以用for...of循环遍历它的成员。也就是说，for...of循环内部调用的是数据结构的[Symbol.iterator]方法。
-    
+
     for...of循环可以使用的范围包括数组、Set 和 Map 结构、某些类似数组的对象（比如arguments对象、DOM NodeList 对象）、后文的 Generator 对象，以及字符串。
     1. 数组
     2. Set 和 Map 结构
@@ -152,10 +152,10 @@
         - keys() 返回一个遍历器对象，用来遍历所有的键名。
         - values() 返回一个遍历器对象，用来遍历所有的键值。
       通过这三个方法调用后生成的遍历器对象，所遍历的都是计算生成的数据结构。
-    4. 类似数组的对象。 
+    4. 类似数组的对象。
         1. 对于【字符串、DOM NodeList 对象、arguments对象】原生具备 Iterator 接口, for...of 循环可直接用来遍历 。
         2. 对于【{length: 2, 0: "a", 1: "b" }】这种 类似数组但是没有原生Iterator接口 的对象，利用 Array.from 为其添加 Iterator 接口，使其可以使用 for...of 遍历。
-    5. 对于普通对象【{'a': "aa", 'b': "bb"}】,for...of 结构不能直接使用，可用 for...in 遍历键名。想用for...of的解决方案是：1-使用Object.keys方法将对象的键名生成一个数组，然后遍历这个数组。2-使用 Generator 函数将对象重新包装一下。 
+    5. 对于普通对象【{'a': "aa", 'b': "bb"}】,for...of 结构不能直接使用，可用 for...in 遍历键名。想用for...of的解决方案是：1-使用Object.keys方法将对象的键名生成一个数组，然后遍历这个数组。2-使用 Generator 函数将对象重新包装一下。
     6. 与其他遍历方法的比较
         1. for循环  比较麻烦，不如数组内置方法forEach
         2. forEach  无法跳出循环，不能return or break
@@ -164,5 +164,3 @@
             1. 有着同for...in一样的简洁语法，但是没有for...in那些缺点。
             2. 不同于forEach方法，它可以与break、continue和return配合使用。
             3. 提供了遍历所有数据结构的统一操作接口。
-
-

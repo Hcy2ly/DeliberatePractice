@@ -1,10 +1,11 @@
-# 寒冬大佬提问 https://www.cnblogs.com/winter-cn/archive/2013/05/11/3072926.html
+# 寒冬大佬提问 <https://www.cnblogs.com/winter-cn/archive/2013/05/11/3072926.html>
 
 好面试有三点衡量指标: 区分度 深度 覆盖范围
 
 问题：css 的 position 属性有哪些取值，它们的行为是什么？
 
-答案可以分成不同的层级: 
+答案可以分成不同的层级:
+
   1. position 属性常用的取值 static、relative 以及 absolute 和它们的基本行为是每个前端都应该掌握的，包括 relative 和 absolute 的定位原点。 [position]
   2. fixed 旧版本 IE 不支持，但是一个对技术有热情的工程师也是应该了解的。 [浏览器兼容]
   3. 有过研究工程师可以知道 absolute 的 containing block 计算方式跟正常流不同，当然如果没读过标准的话，表述方式不一定是这样。 [position-如何计算当前元素的最终位置]

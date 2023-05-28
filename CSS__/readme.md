@@ -1,6 +1,5 @@
 # css面试题总结
 
-
 ## 1 介绍一下标准的css的盒子模型？与低版本的IE的盒子模型有什么不同
 
 标准盒子模型：宽度=内容的宽度（content）+ border + padding + margin
@@ -84,7 +83,7 @@ font-face属性：定义自己的字体
 圆角（边框半径）：border-radius 属性用于创建圆角
 边框图片：border-image: url(border.png) 30 30 round
 盒阴影：box-shadow: 10px 10px 5px #888888
-媒体查询：定义两套css，当浏览器的尺寸变化时会采用不同的属性 
+媒体查询：定义两套css，当浏览器的尺寸变化时会采用不同的属性
 
 ## 10 请解释一下CSS3的flexbox（弹性盒布局模型）,以及适用场景？
 
@@ -121,25 +120,25 @@ border-bottom: 40px solid #ff0000;
    [解决方法]: *{margin:0;padding:0;}
 
 2. IE6双边距bug。块属性标签float后，又有横行的margin情况下，在IE6显示margin比设置的大。
-   [解决方法]: display:inline;将其转化为行内属性。
-   渐进识别的方式，从总体中逐渐排除局部。首先，巧妙的使用“9”这一标记，将IE浏览器从所有情况中分离出来。接着，再次使用“+”将IE8和IE7、IE6分离开来，这样IE8已经独立识别。
+    [解决方法]: display:inline;将其转化为行内属性。
+    渐进识别的方式，从总体中逐渐排除局部。首先，巧妙的使用“9”这一标记，将IE浏览器从所有情况中分离出来。接着，再次使用“+”将IE8和IE7、IE6分离开来，这样IE8已经独立识别。
     {
-    background-color:#f1ee18;/*所有识别*/
-    .background-color:#00deff\9; /*IE6、7、8识别*/
-    +background-color:#a200ff;/*IE6、7识别*/
-    _background-color:#1e0bd1;/*IE6识别*/
+      background-color:#f1ee18;/*所有识别*/
+      .background-color:#00deff\9; /*IE6、7、8识别*/
+      +background-color:#a200ff;/*IE6、7识别*/
+      _background-color:#1e0bd1;/*IE6识别*/
     }
 
 3. 设置较小高度标签（一般小于10px），在IE6，IE7中高度超出自己设置高度。
-   [解决方法]: 给超出高度的标签设置overflow:hidden;或者设置行高line-height 小于你设置的高度。
+    [解决方法]: 给超出高度的标签设置overflow:hidden;或者设置行高line-height 小于你设置的高度。
 
-4. IE下，可以使用获取常规属性的方法来获取自定义属性,也可以使用getAttribute()获取自定义属性；Firefox下，只能使用getAttribute()获取自定义属性。[解决方法]: 统一通过getAttribute()获取自定义属性。
+4. IE下，可以使用获取常规属性的方法来获取自定义属性,也可以使用getAttribute()获取自定义属性；Firefox下，只能使用getAttribute()获取自定义属性。
+    [解决方法]: 统一通过getAttribute()获取自定义属性。
 
 5. Chrome 中文界面下默认会将小于 12px 的文本强制按照 12px 显示.
-   [解决办法]: 加入 CSS 属性 -webkit-text-size-adjust: none; 解决。
+    [解决办法]: 加入 CSS 属性 -webkit-text-size-adjust: none; 解决。
 
 6. 超链接访问过后hover样式就不出现了，被点击访问过的超链接样式不再具有hover和active了。
-   [解决方法]: 是改变CSS属性的排列顺序:L-V-H-A ( love hate ): a:link {} a:visited {} a:hover {} a:active {}
 
 ## 14 为什么要初始化CSS样式
 
@@ -176,6 +175,7 @@ position属性规定元素的定位类型；float属性是一种布局方式，�
 ## 19 对BFC规范(块级格式化上下文：block formatting context)的理解？
 
 BFC规定了内部的Block Box如何布局。
+
 1. 定位方案：
     内部的 Box 会在垂直方向上一个接一个放置。
     Box 垂直方向的距离由 margin 决定，属于同一个 BFC 的两个相邻 Box 的 margin 会发生重叠。
@@ -205,7 +205,6 @@ BFC规定了内部的Block Box如何布局。
     最后一个浮动元素后加空div标签 并添加样式clear:both。
     包含浮动元素的父标签添加样式overflow为hidden或auto。
     父级div定义zoom
-
 
 ## 21 上下margin重合的问题
 
@@ -243,7 +242,8 @@ BFC规定了内部的Block Box如何布局。
   CSS : @media only screen and (max-device-width:480px) {/css样式/}
 
 ## 24 使用 CSS 预处理器吗？
-Less sass 
+
+Less sass
 
 ## 25 CSS优化、提高性能的方法有哪些？
 
@@ -335,6 +335,7 @@ p{font-size:10px;-webkit-transform:scale(0.8);} //0.8是缩放比例
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no"/>
 
 ## 38 如果需要手动写动画，你认为最小时间间隔是多久，为什么？
+
 多数显示器默认频率是60Hz，即1秒刷新60次，所以理论上最小间隔为1/60＊1000ms ＝ 16.7ms。
 
 ## 39 li与li之间有看不见的空白间隔是什么原因引起的？有什么解决办法？
@@ -386,7 +387,7 @@ webp格式是谷歌在2010年推出的图片格式，压缩率只有jpg的2/3，
 Flex 布局将成为未来布局的首选方案。
 
 1. Flex布局是什么？
-   
+
     Flex 是 Flexible Box 的缩写，意为"弹性布局"，用来为盒状模型提供最大的灵活性。
     任何一个容器都可以指定为 Flex 布局。块级元素用 flex，行内元素用 inline-flex。
     Webkit 内核的浏览器，必须加上-webkit前缀。（现在都会引入postcss，其中有autoprefixer帮助我们实现前缀自动补齐）
@@ -398,13 +399,13 @@ Flex 布局将成为未来布局的首选方案。
     容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。
     *项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。*
 
-3. （设置了flex的元素）容器的属性 
+3. （设置了flex的元素）容器的属性
     6个属性：
-          [flex-direction] 
+          [flex-direction]
           决定主轴的方向（即项目的排列方向）。
           >  flex-direction: row | row-reverse | column | column-reverse;  
                            // 默认水平紧贴着从左到右 | 从右到左 | 从上到下  | 从下到上；
-          [flex-wrap] 
+          [flex-wrap]
           默认情况下，项目都排在一条线（又称"轴线"）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。
           >  flex-wrap: nowrap | wrap | wrap-reverse;
                       // 默认不换行 | 换行，第一行在上方 | 换行，第一行在下方
@@ -424,28 +425,26 @@ Flex 布局将成为未来布局的首选方案。
           >  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
                          // 与交叉轴的起点对齐 | 终点对齐 | 居中 | 与交叉轴两端对齐中间平均分布 | 每根轴线两侧的间隔都相等 | 默认值，轴线占满整个交叉轴
 
-
 4. （被包裹的元素）项目属性
     6个属性：
-          [order] 
+          [order]
             定义项目的排列顺序。数值越小，排列越靠前，默认为0。
             > order: <integer>; // -1， 0， 99
           [flex-grow]
             定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。
-            > flex-grow: <number>; /* default 0 */ 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
+            > flex-grow: <number>; /*default 0*/ 如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。
           [flex-shrink]
             定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。
-            > flex-shrink: <number>; /* default 1 */ 如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。
+            > flex-shrink: <number>; /*default 1*/ 如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。
           [flex-basis]
             定义了在分配多余空间之前，项目占据的主轴空间（main size）
-            > flex-basis: <length> | auto; /* default auto */ 它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。
+            > flex-basis: <length> | auto; /*default auto*/ 它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。
           [flex]
             flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
             > flex: none | [ <'flex-grow'> <'flex-shrink'>? || <'flex-basis'> ] 该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。
           [align-self]
             允许单个项目有与其他项目不一样的对齐方式。可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。
             > align-self: auto | flex-start | flex-end | center | baseline | stretch; 该属性可能取6个值，除了auto，其他都与align-items属性完全一致。
-
 
 ## 47 BFC是什么？能解决什么问题？
 
@@ -465,4 +464,4 @@ BFC在布局中的解决的问题：
     2 解决浮动: 在清楚浮动带来的问题的解决方案中,一定会回答用BFC清除,那到底是怎么清除的呢? 根本原因就是父级元素创建BFC后,子元素即使浮动也会参与BFC高度的计算.即不会产生高度塌陷的问题.
     3 多栏布局的BFC实现： 通过BFC约束: BFC的区域不会与float的元素区域重叠, 可以来实现多栏布局.
 
-## 48 
+## 48

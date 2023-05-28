@@ -15,35 +15,35 @@
 
     2. Set 实例的方法分为两大类
         1. 操作方法：操作数据。 // 共有四种操作方法。
-          * 1.1 方法一 添加成员
-              Set.prototype.add(value) // 返回 Set 结构本身
-          * 1.2 方法二 删除成员
-              Set.prototype.delete(value) // 返回 boolean 值，告知 value 是否被删除
-          * 1.3 方法三 添加成员
-              Set.prototype.has(value) // 返回 boolean 值，告知当前 value 是否为 Set 成员
-          * 1.4 方法四 删除成员
-              Set.prototype.clear() // 无返回值，清空所有成员
+            * 1.1 方法一 添加成员
+                Set.prototype.add(value) // 返回 Set 结构本身
+            * 1.2 方法二 删除成员
+                Set.prototype.delete(value) // 返回 boolean 值，告知 value 是否被删除
+            * 1.3 方法三 添加成员
+                Set.prototype.has(value) // 返回 boolean 值，告知当前 value 是否为 Set 成员
+            * 1.4 方法四 删除成员
+                Set.prototype.clear() // 无返回值，清空所有成员
 
         2. 遍历方法：遍历成员。 // 四种遍历方法
-          * 2.1  方法一  返回键值的遍历器
-              Set.prototype.values()
-          * 2.2  方法二  返回键名的遍历器
-              Set.prototype.keys()
-          * 2.3  方法三  返回键值对遍历器
-              Set.prototype.entries()
-          * 2.4  方法四  使用回调函数遍历每个成员
-              Set.prototype.forEach(function (value) { })
+            * 2.1  方法一  返回键值的遍历器
+                Set.prototype.values()
+            * 2.2  方法二  返回键名的遍历器
+                Set.prototype.keys()
+            * 2.3  方法三  返回键值对遍历器
+                Set.prototype.entries()
+            * 2.4  方法四  使用回调函数遍历每个成员
+                Set.prototype.forEach(function (value) { })
 
 ## WeakSet 对象
 
 1. 含义
     1. WeakSet 是一个构造函数，可以使用new命令，创建 WeakSet 数据结构。
     2. 与Set类似，也是不重复的集合。但是它与Set有两个区别：
-      1. WeakSet 的成员只能是对象，而不能是其他类型的值
-      2. 其次，WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用。也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中。
-      这是因为垃圾回收机制根据对象的可达性（reachability）来判断回收，如果对象还能被访问到，垃圾回收机制就不会释放这块内存。结束使用该值之后，有时会忘记取消引用，导致内存无法释放，进而可能会引发内存泄漏。WeakSet 里面的引用，都不计入垃圾回收机制，所以就不存在这个问题。
-      因此，WeakSet 适合临时存放一组对象，以及存放跟对象绑定的信息。只要这些对象在外部消失，它在 WeakSet 里面的引用就会自动消失。
-      由于上面这个特点，WeakSet 的成员是不适合引用的，因为它会随时消失。另外，由于 WeakSet 内部有多少个成员，取决于垃圾回收机制有没有运行，运行前后很可能成员个数是不一样的，而垃圾回收机制何时运行是不可预测的，*因此 ES6 规定 WeakSet 不可遍历。*
+        1. WeakSet 的成员只能是对象，而不能是其他类型的值
+        2. 其次，WeakSet 中的对象都是弱引用，即垃圾回收机制不考虑 WeakSet 对该对象的引用。也就是说，如果其他对象都不再引用该对象，那么垃圾回收机制会自动回收该对象所占用的内存，不考虑该对象还存在于 WeakSet 之中。
+        这是因为垃圾回收机制根据对象的可达性（reachability）来判断回收，如果对象还能被访问到，垃圾回收机制就不会释放这块内存。结束使用该值之后，有时会忘记取消引用，导致内存无法释放，进而可能会引发内存泄漏。WeakSet 里面的引用，都不计入垃圾回收机制，所以就不存在这个问题。
+        因此，WeakSet 适合临时存放一组对象，以及存放跟对象绑定的信息。只要这些对象在外部消失，它在 WeakSet 里面的引用就会自动消失。
+        由于上面这个特点，WeakSet 的成员是不适合引用的，因为它会随时消失。另外，由于 WeakSet 内部有多少个成员，取决于垃圾回收机制有没有运行，运行前后很可能成员个数是不一样的，而垃圾回收机制何时运行是不可预测的，*因此 ES6 规定 WeakSet 不可遍历。*
 
 2. 方法
     1. WeakSet.prototype.add(value)：向 WeakSet 实例添加一个新成员。
@@ -158,27 +158,30 @@
     一是没有遍历操作（即没有 values(), keys(), entries() 方法），也没有size属性。因为它没法确认所有的键值，某个键名是否完全不可预测，跟垃圾回收机制是否运行相关。这一刻还可以取到键值，下一刻就被垃圾回收了，为了防止出现这种不确定性，就规定直接不能取到键值。
     二是没有clear清空操作，无法清空。因为没法确认长度，所以没法清空。
     so，WeakMap对象只有四个属性方法可用，set()、get()、delete()、has()
- 
+
 3. 如何观察 WeakMap 里面的引用是否消失？
   Chrome 浏览器的 Dev Tools 的 Memory 面板，有一个垃圾桶的按钮，可以强制垃圾回收（garbage collect）。这个按钮也能用来观察 WeakMap 里面的引用是否消失。
   或者知道key的话最简单就是 get() 方法
 
 4. WeakMap 用途
     1. 经典场景
-      ```
-          let myWeakmap = new WeakMap();
-          myWeakmap.set(
-            document.getElementById('logo'),
-            {timesClicked: 0})
-          ;
-          document.getElementById('logo').addEventListener('click', function() {
-            let logoData = myWeakmap.get(document.getElementById('logo'));
-            logoData.timesClicked++;
-          }, false);
-      ```
+
+        ```js
+            let myWeakmap = new WeakMap();
+            myWeakmap.set(
+              document.getElementById('logo'),
+              {timesClicked: 0})
+            ;
+            document.getElementById('logo').addEventListener('click', function() {
+              let logoData = myWeakmap.get(document.getElementById('logo'));
+              logoData.timesClicked++;
+            }, false);
+        ```
+
       上面代码中，document.getElementById('logo')是一个 DOM 节点，每当发生click事件，就更新一下状态。我们将这个状态作为键值放在 WeakMap 里，对应的键名就是这个节点对象。一旦这个 DOM 节点删除，该状态就会自动消失，不存在内存泄漏风险。
   
     2. 部署私有属性
+
       ```
         const _counter = new WeakMap();
         const _action = new WeakMap();
@@ -205,8 +208,8 @@
         c.dec()
         // DONE
       ```
-      Countdown类的两个内部属性，是实例的弱引用，当实例被删除的时候，他们就就消失了，不会造成内存泄漏。
 
+      Countdown类的两个内部属性，是实例的弱引用，当实例被删除的时候，他们就就消失了，不会造成内存泄漏。
 
 ## WeakRef （ES2021推出来的）
 
@@ -253,4 +256,3 @@
   ES2021 引入了清理器注册表功能 FinalizationRegistry，用来指定目标对象被垃圾回收机制清除以后，所要执行的回调函数
 
 2. 使用方法 [finalizationRegistry.js]
-
