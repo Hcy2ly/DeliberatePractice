@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NBA球星</title>
 </head>
 <style>
   html,
@@ -14,104 +14,152 @@
     margin: 0;
     /** 内边距为0 */
     padding: 0;
+    /** 渐变背景 */
+    background-image: linear-gradient(to right,
+        rgb(233, 98, 98),
+        rgb(220, 220, 103));
   }
 
   .container {
-    /** 弹性布局 */
-    display: flex;
-    /** 垂直居中 */
-    align-items: center;
-    /** 水平居中 */
-    justify-content: center;
-
     /** 相对定位 相对父元素 */
     position: relative;
     /** 100vw 表示占满当前视宽 */
     width: 100vw;
     /** 100vh 表示占满当前视高 */
-    height: 100vh;
-
-    /** 不确定多大 就设置一个背景颜色看看 到底占了多大 */
-    background-image: linear-gradient(to right, rgb(233, 98, 98), rgb(220, 220, 103));
+    height: 100%;
+    padding-bottom: 100px;
   }
 
-  .body {
-    /* 设置高宽 */
-    width: 900px;
+  .title {
+    text-align: center;
+    font-size: 48px;
+    text-shadow: 2px 2px 5px #585757;
+  }
+
+  .group-part {
+    position: relative;
+    width: 100%;
+    height: 1000px;
+    padding-top: 30px;
+    box-sizing: border-box;
+    background: rgba(255, 255, 255, 0.3);
+  }
+
+  .group-box {
+    width: 2000px;
     height: 600px;
-
-    /** 设置背景为黑色 不透明度为0.1 */
-    background: #fff;
-    /* opacity: 0.1; */
-    /** 上面两行代码 也可以直接用下面这个 用一个就行 */
-    /* background: rgba(0, 0, 0, 0.1); */
-
-    /** 我想要一种立体感 好像中间的内容是凸出来的 那就给边框加上阴影 */
-    box-shadow: 2px 2px 10px rgb(151, 150, 150);
-
-    /** 设置圆角 */
-    border-radius: 10px;
-
-    /** 设置字体 */
-    color: #000;
-    font-size: 20px;
-
-
-
+    margin: 0 auto;
+    box-shadow: 3px 3px 10px rgb(33, 32, 32);
+    border-radius: 20px;
     overflow: hidden;
   }
 
-  .imgs {
-    position: relative;
-    height: 100%;
-    width: 2000px;
-    display: inline-flex;
-    align-items: center;
-    overflow: auto;
+  .group-imgs {
+    display: flex;
+    width: 4000px;
+    height: 600px;
+    overflow-y: hidden;
+    margin-bottom: 50px;
+    box-shadow: 3px 3px 10px rgb(151, 150, 150);
+    /** 添加循环动画 */
+    animation: myGroupAni 10s linear infinite;
   }
 
-  img {
-    /** 设置行内盒子 */
-    display: inline-block;
-    /** 没装图片 暂时设置背景给你看 设置没有展示全的图片是一半 */
-    width: 200px;
-    height: 600px;
-    background: pink;
+  @keyframes myGroupAni {
+    0% {
+      transform: translateX(0)
+    }
 
-    /** 我希望子元素 img 不要有边距 可以贴着展示 可以让我们的img向左边浮动 不过更推荐父元素用弹性布局 */
-    /* float: left; */
+    50% {
+      /** 100vw */
+      transform: translateX(-2000px)
+    }
+
+    100% {
+      transform: translateX(0)
+    }
+  }
+
+  .group-text {
+    /* width: 2000px; */
+    padding: 30px;
+    margin: 50px auto 0;
+    font-size: 22px;
+    color: #fff;
+    line-height: 32px;
+    /** 字体间隔 */
+    letter-spacing: 4px;
+    background: #2b2a2a;
+  }
+
+  .member-part {
+    margin-top: 80px;
+  }
+
+  .member-imgs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .member-img {
+    width: 540px;
+    height: 800px;
   }
 
   /** 当图片被鼠标选中的时候 我希望它可以展示全 */
-  img:hover {
-    /** 选中的时候展示全部宽度 */
-    width: 350px;
-    /** 背景切换成绿色 */
-    background: green;
-    /** 再加个边框 */
-    /* border: 2px solid red; */
-
-    /** 我想让选中的更具体 所以加上点阴影 */
-    box-shadow: 2px 2px 10px rgb(110, 109, 109);
-
+  .member-img:hover {
+    /** 我想让选中的更立体 所以加上点阴影 */
+    box-shadow: 6px 6px 20px rgb(36, 36, 36);
     /** 加一个过渡的动画 显得很丝滑 */
-    transition: all 0.2s linear;
+    transition: all 0.2s ease-in-out;
+  }
+
+  .tips {
+    text-align: center;
+    font-size: 20px;
+    color: #eee;
+    margin-top: 20px;
   }
 </style>
 
 <body>
   <div class="container">
-    <div class="body">
-      <div class="imgs">
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
-        <img src="" alt="" />
+    <h1 class="title">- NBA球星 -</h1>
+
+    <div class="group-part">
+      <div class="group-box">
+        <div class="group-imgs">
+          <img src="./images/group.jpg" alt="" width="1000" />
+          <img src="./images/group-harden.jpeg" alt="" width="1000" />
+          <img src="./images/group-durant.jpeg" alt="" width="1000" />
+          <img src="./images/group-lriving.jpeg" alt="" width="1000" />
+        </div>
       </div>
+
+      <p class="group-text">
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;时间回到一九至二零赛季前夕，因为球队的战绩不佳和商业价值一直缩水，前篮网队老板以23.5亿美元的价格将球队出售给了蔡崇信，他也从此前的小股东一跃成为了球队的唯一投资人。而除了接手篮网，蔡崇信更是耗资11.5亿美元买下了巴莱克中心球馆，以他惯用的互联网思维对布鲁克林篮网开始了一场不顾一切的豪赌，先是以四年1.41亿美元的底薪合同签下了进入自由市场的凯里欧文，再是用先签后换的方式送出了丹吉诺拉塞尔等三名球员，以四年1.64亿美元的超级合同得到了刚刚在季后赛阶段折戟金州、跟腱断裂的凯文杜兰特。在随后的协商交易中，小乔丹也以四年四千万美元加盟了篮网，也有相关报道称为了让他能够拿到千万年薪，杜兰特和欧文都甘愿降薪，但球队管理层还是保证了二人的合同薪资，欧文也仅仅损失了200万美元的奖金。而在杜兰特养伤一年复出回归后，为了迎合他的胃口，球队管理层也招募了史蒂夫纳什担任球队主教练，并于2021年1月14日在与四支球队的交易中得到了詹姆斯哈登，对球队进行了补强。而彼时的三人就单一而论，都属于联盟中最顶级的球员，更何况是在联手之后，他们也以绝对震撼的方式组成了足以令整个联盟颤抖的篮网三巨头，他们的目的也不言而喻，在当时球迷的眼中，这样的一支球队根本无法击败，而布鲁克林篮网三巨头也自此开始了他们的心酸之旅。
+      </p>
     </div>
+
+    <div class="member-part">
+      <div class="member-imgs">
+        <a href="./Harden.html">
+          <img src="./images/Harden.jpeg" alt="" class="member-img" />
+        </a>
+
+        <a href="./Durant.html">
+          <img src="./images/Durant.jpeg" alt="" class="member-img" />
+        </a>
+
+        <a href="./Irving.html">
+          <img src="./images/Irving.jpeg" alt="" class="member-img" />
+        </a>
+      </div>
+
+      <div class="tips"> 「 点击👆图片，了解你感兴趣的球星～ 」 </div>
+    </div>
+  </div>
   </div>
 </body>
 

@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>NBA球星</title>
+</head>
+<style>
+  html,
+  body {
+    /** 外边距为0 */
+    margin: 0;
+    /** 内边距为0 */
+    padding: 0;
+  }
+
+  .container {
+    /** 弹性布局 */
+    display: flex;
+    /** 垂直居中 */
+    align-items: center;
+    /** 水平居中 */
+    justify-content: center;
+
+    /** 相对定位 相对父元素 */
+    position: relative;
+    /** 100vw 表示占满当前视宽 */
+    width: 100vw;
+    /** 100vh 表示占满当前视高 */
+    height: 100vh;
+
+    /** 不确定多大 就设置一个背景颜色看看 到底占了多大 */
+    background-image: linear-gradient(to right, rgb(233, 98, 98), rgb(220, 220, 103));
+  }
+
+  .body {
+    /* 设置高宽 */
+    width: 1000px;
+    height: 480px;
+
+    /** 设置背景为黑色 不透明度为0.1 */
+    background: #fff;
+    /* opacity: 0.1; */
+    /** 上面两行代码 也可以直接用下面这个 用一个就行 */
+    /* background: rgba(0, 0, 0, 0.1); */
+
+    /** 我想要一种立体感 好像中间的内容是凸出来的 那就给边框加上阴影 */
+    box-shadow: 2px 2px 10px rgb(151, 150, 150);
+
+    /** 设置圆角 */
+    border-radius: 10px;
+
+    /** 设置字体 */
+    color: #000;
+    font-size: 20px;
+
+
+
+    overflow: hidden;
+  }
+
+  .imgs {
+    position: relative;
+    height: 100%;
+    width: 2000px;
+    display: inline-flex;
+    align-items: center;
+    overflow: auto;
+  }
+
+  .img {
+    /** 设置行内盒子 */
+    display: inline-block;
+    /** 没装图片 暂时设置背景给你看 设置没有展示全的图片是一半 */
+    width: 334px;
+    height: 500px;
+    background: pink;
+    overflow: hidden;
+
+    /** 我希望子元素 img 不要有边距 可以贴着展示 可以让我们的img向左边浮动 不过更推荐父元素用弹性布局 */
+    /* float: left; */
+  }
+
+  /** 当图片被鼠标选中的时候 我希望它可以展示全 */
+  .img:hover {
+    /** 选中的时候展示全部宽度 */
+    width: 889px;
+    /** 背景切换成绿色 */
+    background: green;
+    /** 再加个边框 */
+    /* border: 2px solid red; */
+
+    /** 我想让选中的更具体 所以加上点阴影 */
+    box-shadow: 2px 2px 10px rgb(110, 109, 109);
+
+    /** 加一个过渡的动画 显得很丝滑 */
+    transition: all 0.2s linear;
+  }
+</style>
+
+<body>
+  <div class="container">
+    <div class="body">
+      <div class="imgs">
+        <a href="./durant.html"><div class="img"><img src="durant.jpeg" alt="" /></div></a>
+        <a href="./Irving.html"><div class="img"><img src="Irving.jpeg" alt="" height="500" /></div></a>
+        <a href="./harden.html"><div class="img"><img src="harden.jpeg" alt="" /></div></a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
